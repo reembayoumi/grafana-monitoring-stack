@@ -1,0 +1,49 @@
+{
+  "title": "Loki Job/Task Logs",
+  "uid": "loki-logs-filter",
+  "panels": [
+    {
+      "type": "logs",
+      "title": "Logs by Job/Task/Status ID",
+      "datasource": "Loki",
+      "targets": [
+        {
+          "expr": "{job=\"docker-logs\", jobid=\"\", taskid=\"\", statusid=\"\"}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"h": 12, "w": 24, "x": 0, "y": 0},
+      "options": {"showLabels": true, "wrapLogMessage": true, "showTime": true}
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "jobid",
+        "label": "Job ID",
+        "type": "query",
+        "datasource": "Loki",
+        "query": "label_values(jobid)",
+        "refresh": 1
+      },
+      {
+        "name": "taskid",
+        "label": "Task ID",
+        "type": "query",
+        "datasource": "Loki",
+        "query": "label_values(taskid)",
+        "refresh": 1
+      },
+      {
+        "name": "statusid",
+        "label": "Status ID",
+        "type": "query",
+        "datasource": "Loki",
+        "query": "label_values(statusid)",
+        "refresh": 1
+      }
+    ]
+  },
+  "time": {"from": "now-6h", "to": "now"},
+  "schemaVersion": 37
+}
